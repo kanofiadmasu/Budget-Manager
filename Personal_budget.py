@@ -77,13 +77,42 @@ def total_balance(filename='transaction.txt'):
       print(f'[DEBUG] {amount=}, {type_=}')
    except FileNotFoundError:
        print('No Transaction file found.')
-         
+
+def delete_tranasction(filename='transaction.txt'):
+   try: 
+      with open(filename, 'r') as file:
+         transaction_list = file.readlines()
+         for index, line in enumerate(transaction_list):
+            print(f'{index}: {line.strip()}')
+   except FileNotFoundError:
+      print('Transaction file not found')
+
+   while True:
+      user_choice = input('Which transaction would like to delete? Choose the Index')
+      try: 
+         user_choice = int(user_choice)
+         if 0 <= user_choice < len(transaction_list):
+          break
+         else: 
+            print('Invalid index! Please Choose a number form the list. ')
+      except ValueError:
+         print('Invalid Input')
+
+   del transaction_list[user_choice]
+
+   with open(filename, 'w') as file: 
+      for line in transaction_list:
+         file.write(line)
+
+   print('✅Transaction deleted succecsfully!!')
+  
 def main_menu():
    while True:
       choices = ['1 : Add a Transaction', 
                  '2 : View all transactions', 
                  '3 : Total Balance',
-                 '4 : Exit']
+                 '4 : Delete a transaction',
+                 '5 : Exit']
       for choice in choices: 
          print(choice)
       user_choice = input('Enter Your Choice: ')
@@ -105,12 +134,15 @@ def main_menu():
 
       elif user_choice == 3:
          total_balance()
-
+      
       elif user_choice == 4:
+         delete_tranasction()
+         
+      elif user_choice == 5:
          print('Exiting... Goodbye!')
          break
       else: 
-         print('Invalid choice. (1, 2, or 3).')
+         print('Invalid choice. (1, 2, 3, 4 or 5).')
 main_menu()
 
 
