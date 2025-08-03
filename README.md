@@ -7,4 +7,4 @@ Featres of the app
 
 
 
-This is a personal project that I built by myself to reinforce and solidy my learning.
+This is a personal project that I built by myself to reinforce and solidify my learning.
