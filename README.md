@@ -8,6 +8,8 @@ Featres of the app
    
    -> Deleting specific Transactions using thier index
 
+   -> Saving  and loading from a file
+
 
 
 This is a personal project that I built by myself to reinforce and solidify my learning.
