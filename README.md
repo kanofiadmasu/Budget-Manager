@@ -6,12 +6,54 @@ This is a command line app that can track your expesense, income and save them i
 
 ## Featres of the app  
 
-   *.* Adding Transaction (Income/Expense)    
-   *.* Showing history of transactions as a list  
-   *.* Deleting specific Transactions using thier index  
-   *.* Saving  and loading from a file
-   
+   - Adding Transaction (Income/Expense)
+   - Showing history of transactions as a list
+   - Deleting specific Transactions using thier index
+   - Saving and loading from a file
 
-This is my first ever usefull python project. Prior to this I only built smaller projects to practice and learn specific concepts. As this is a beginner project this code can be refactored to produce more quality, readable, and efficeint code. 
+## Installation 
+
+Make sure you have *Python 3.8+* installed in your computer. 
+
+Clone the repository and head to that folder 
+
+    git clone https://github.com/kanofiadmasu/Budget-Manager
+    cd Budget-Manager
+
+## Usage 
+
+Once installed simply run the file and you will be prompted with main menu options
+
+    python Personal_budget.py
+
+    Output options
+    
+    1: Add a transaction
+    2: View all transactions
+    3: Total balance
+    4: Delete a transaction
+    5: Exit
+    
+    Enter your choice: 
+      
+## Project Structure
+
+    budgetmanager/
+    │
+    ├── Personal_budget.py      # Main CLI script
+    ├── transaction.txt         # Saved transactions
+    ├── README.md
+
+## Contributing 
+
+  1. Fork the repo  
+  2. Add or improve features, report an issue or a bug  
+  3. Open a pull request
+
+## License
+
+
+---   
+This is my first python project. Prior to this I only built smaller projects to practice and learn specific concepts. As this is a beginner project this code can be refactored to produce more quality, readable, and efficeint code.
 
 
