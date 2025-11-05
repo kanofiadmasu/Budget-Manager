@@ -61,23 +61,18 @@ def total_balance(filename='transaction.txt'):
    try:
       with open(filename, 'r') as file:
          for line in file: 
-            try: 
                amount, transaction_type, date, description = line.strip().split('|', 3)
                if transaction_type.upper() == 'INCOME':
-                  total_income += float(amount)
+                  total_income += amount
                elif transaction_type.upper() == 'EXPENSE':
-                  total_expense += float(amount)
-
-            except ValueError:
-               continue 
-
+                  total_expense += amount
+                  
       net_balance = total_income - total_expense
 
       print('\n💰 Balance Summary: ')
-      print(f'Total Income: ${total_income:.2f}')
-      print(f'Total Expense: ${total_expense:.2f}')
-      print(f'Balance : ${net_balance:.2f}\n')
-
+      print(f'Total Income: ${total_income}')
+      print(f'Total Expense: ${total_expense}')
+      print(f'Balance : ${net_balance:}\n')
 
    except FileNotFoundError:
        print('\n❌No Transaction file found.')
