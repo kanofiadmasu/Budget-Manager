@@ -15,43 +15,46 @@ class Transactions:
     
     def save_to_file(self, filename='transaction.txt'):
        with open(filename, 'a') as file:
-          line = f'{self.amount}-{self.type}-{self.date}-{self.description}\n'
+          line = f'{self.amount} | {self.type} | {self.date} | {self.description}\n'
           file.write(line)
-    
+
+# Adding Transaction
 def add_transaction():
    while True:
-    amount_input =  input('How much is the amount?')
-    try: 
-       amount_input = float(amount_input)
-       break
-    except ValueError:
+      amount_input =  input('How much is the amount?')
+      try: 
+         amount_input = float(amount_input)
+         break
+      except ValueError:
        print('Please enter a valid number for the amount.')
  
    transaction_type_list =['INCOME','EXPENSE']
    while True: 
-    transaction_type = input('Is it income or expense?').upper().strip()
-    if transaction_type not in transaction_type_list:
-        print('Please Choose the right type!')
-    else: 
-       break
+      transaction_type = input('Is it income or expense?').upper().strip()
+      if transaction_type not in transaction_type_list:
+        print('❌ Please Choose the right type of transaction!')
+      else: 
+         break
 
-   description = input('What is the Description?')
+   description = input('What is the Description?') 
    return amount_input, transaction_type, description
 
-
+# Viewing Transaction History
 def transaction_history(filename='transaction.txt'):
    try:
       with open(filename, 'r') as file:
          lines = file.readlines()
          if not lines:
-            print('No transactions found.')
+            print('\n❌No transactions found.')
             return
+         
          for line in lines: 
-            amount, type_, date, description = line.strip().split('-', 3)
-            print(f'{amount} | {type_} | {date} | {description} ')
+            amount, transaction_type, date, description = line.strip().split(' | ', 3)
+            print(f'{amount} | {transaction_type} | {date} | {description} ')
    except FileNotFoundError:
-      print('No transaction file found')
+      print('\n❌No transaction file found')
 
+# Total Balanace Viewing
 def total_balance(filename='transaction.txt'):
    total_income = 0
    total_expense = 0
@@ -59,14 +62,14 @@ def total_balance(filename='transaction.txt'):
       with open(filename, 'r') as file:
          for line in file: 
             try: 
-               amount, type_, date, description = line.strip().split('-', 3)
-               if type_.upper() == 'INCOME':
+               amount, transaction_type, date, description = line.strip().split('|', 3)
+               if transaction_type.upper() == 'INCOME':
                   total_income += float(amount)
-               elif type_.upper() == 'EXPENSE':
+               elif transaction_type.upper() == 'EXPENSE':
                   total_expense += float(amount)
 
             except ValueError:
-               continue #Becuase the program shouldn't Crash if the line is corrupted
+               continue 
 
       net_balance = total_income - total_expense
 
@@ -74,10 +77,12 @@ def total_balance(filename='transaction.txt'):
       print(f'Total Income: ${total_income:.2f}')
       print(f'Total Expense: ${total_expense:.2f}')
       print(f'Balance : ${net_balance:.2f}\n')
-      print(f'[DEBUG] {amount=}, {type_=}')
-   except FileNotFoundError:
-       print('No Transaction file found.')
 
+
+   except FileNotFoundError:
+       print('\n❌No Transaction file found.')
+
+# Transaction Deletion Feature
 def delete_tranasction(filename='transaction.txt'):
    try: 
       with open(filename, 'r') as file:
@@ -85,10 +90,13 @@ def delete_tranasction(filename='transaction.txt'):
          for index, line in enumerate(transaction_list):
             print(f'{index}: {line.strip()}')
    except FileNotFoundError:
-      print('Transaction file not found')
+      print('❌Transaction file not found')
 
    while True:
-      user_choice = input('Which transaction would like to delete? Choose the Index')
+      user_choice = input('Which transaction would like to delete? Choose the Index: ')
+      
+      if not user_choice:
+         print('\n❌ Input can not be empty. Choose the number before the transaction.')
       try: 
          user_choice = int(user_choice)
          if 0 <= user_choice < len(transaction_list):
@@ -96,7 +104,7 @@ def delete_tranasction(filename='transaction.txt'):
          else: 
             print('Invalid index! Please Choose a number form the list. ')
       except ValueError:
-         print('Invalid Input')
+         print('❌Invalid Input. Only integer numbers are allowed.\n')
 
    del transaction_list[user_choice]
 
@@ -107,15 +115,18 @@ def delete_tranasction(filename='transaction.txt'):
    print('✅Transaction deleted succecsfully!!')
   
 def main_menu():
+   print('\n WELCOME TO THE PERSONAL BUDGET MANAGER!')
    while True:
+      
       choices = ['1 : Add a Transaction', 
                  '2 : View all transactions', 
                  '3 : Total Balance',
                  '4 : Delete a transaction',
                  '5 : Exit']
       for choice in choices: 
-         print(choice)
-      user_choice = input('Enter Your Choice: ')
+         print(f'\n{choice}')
+
+      user_choice = input('\nEnter Your Choice: ').strip()
 
       try: 
          user_choice = int(user_choice)
@@ -127,7 +138,7 @@ def main_menu():
          amount, type_, description = add_transaction()
          t = Transactions(amount, type_, description)
          t.save_to_file()
-         print('Transaction Added!')
+         print('\n✅Transaction Added!')
 
       elif user_choice == 2:
          transaction_history()
@@ -142,8 +153,10 @@ def main_menu():
          print('Exiting... Goodbye!')
          break
       else: 
-         print('Invalid choice. (1, 2, 3, 4 or 5).')
-main_menu()
+         print('❌Invalid choice. (1, 2, 3, 4 or 5).')
+
+if __name__ == '__main__': 
+   main_menu()
 
 
  
