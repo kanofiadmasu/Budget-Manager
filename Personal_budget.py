@@ -60,22 +60,29 @@ def total_balance(filename='transaction.txt'):
    total_expense = 0
    try:
       with open(filename, 'r') as file:
-         for line in file: 
-               amount, transaction_type, date, description = line.strip().split('|', 3)
-               if transaction_type.upper() == 'INCOME':
+         lines = file.readlines()
+
+         for line in lines: 
+               if not line.strip():
+                  continue
+
+               amount, transaction_type, date, description = line.strip().split(' | ', 3)
+               amount = float(amount)
+
+               if transaction_type == 'INCOME':
                   total_income += amount
-               elif transaction_type.upper() == 'EXPENSE':
+               elif transaction_type == 'EXPENSE':
                   total_expense += amount
-                  
-      net_balance = total_income - total_expense
+
+               net_balance = total_income - total_expense
 
       print('\n💰 Balance Summary: ')
-      print(f'Total Income: ${total_income}')
-      print(f'Total Expense: ${total_expense}')
-      print(f'Balance : ${net_balance:}\n')
+      print(f'Total Income: ${total_income:.2f}')
+      print(f'Total Expense: ${total_expense:.2f}')
+      print(f'Balance : ${net_balance:.2f}\n')
 
    except FileNotFoundError:
-       print('\n❌No Transaction file found.')
+       print('\n❌Transaction file not found.')
 
 # Transaction Deletion Feature
 def delete_tranasction(filename='transaction.txt'):
