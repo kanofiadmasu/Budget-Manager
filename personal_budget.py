@@ -21,7 +21,7 @@ class Transactions:
 # Adding Transaction
 def add_transaction():
    while True:
-      amount_input =  input('How much is the amount?')
+      amount_input =  input('How much is the amount? ')
       try: 
          amount_input = float(amount_input)
          break
@@ -30,13 +30,13 @@ def add_transaction():
  
    transaction_type_list =['INCOME','EXPENSE']
    while True: 
-      transaction_type = input('Is it income or expense?').upper().strip()
+      transaction_type = input('Is it income or expense? ').upper().strip()
       if transaction_type not in transaction_type_list:
         print('❌ Please Choose the right type of transaction!')
       else: 
          break
 
-   description = input('What is the Description?') 
+   description = input('What is the Description? ') 
    return amount_input, transaction_type, description
 
 # Viewing Transaction History
