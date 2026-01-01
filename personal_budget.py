@@ -115,16 +115,18 @@ def delete_tranasction(filename='transaction.txt'):
          file.write(line)
 
    print('✅Transaction deleted succecsfully!!')
-  
+
 def main_menu():
    print('\n WELCOME TO THE PERSONAL BUDGET MANAGER!')
    while True:
       
-      choices = ['1 : Add a Transaction', 
+      choices = [
+                 '1 : Add a Transaction', 
                  '2 : View all transactions', 
                  '3 : Total Balance',
                  '4 : Delete a transaction',
-                 '5 : Exit']
+                 '5 : Exit'
+                 ]
       for choice in choices: 
          print(f'\n{choice}')
 
